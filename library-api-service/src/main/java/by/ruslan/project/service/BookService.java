@@ -14,7 +14,7 @@ public interface BookService {
 
   void updateBook(Long id, BookDto bookDto);
 
-  void deleteBook(Long id);
+  void deleteBook(Long id) throws Exception;
 
   List<BookDto> getBooksByIds(List<Long> ids);
 

@@ -2,6 +2,7 @@ package by.ruslan.project.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,7 +30,11 @@ public class SecurityConfig {
         )
         .authorizeHttpRequests(
             authManager -> authManager
-                .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**")
+                .permitAll()
+                .requestMatchers(HttpMethod.POST,"/library/books").hasRole("LIBRARIAN")
+                .requestMatchers(HttpMethod.PUT,"/library/books").hasRole("LIBRARIAN")
+                .requestMatchers(HttpMethod.DELETE,"/library/books").hasRole("LIBRARIAN")
                 .anyRequest().authenticated()
         );
 
@@ -53,7 +58,7 @@ public class SecurityConfig {
 
       return Stream.concat(authorities.stream(),
               roles.stream()
-                  .filter(role -> role.startsWith("ROLE"))
+                  .filter(role -> role.startsWith("ROLE_"))
                   .map(SimpleGrantedAuthority::new))
           .toList();
     });

@@ -2,6 +2,9 @@ package by.ruslan.project.service.impl;
 
 import by.ruslan.project.controller.outer.LibraryFeignClient;
 import by.ruslan.project.dto.BookDto;
+import by.ruslan.project.exception.exceptions.BookNotFoundByIdException;
+import by.ruslan.project.exception.exceptions.BookNotFoundByIsbnException;
+import by.ruslan.project.exception.exceptions.BookWithSameIsbnException;
 import by.ruslan.project.mapper.BookMapper;
 import by.ruslan.project.model.Book;
 import by.ruslan.project.repositories.BookRepository;
@@ -27,23 +30,30 @@ public class BookServiceImpl implements BookService {
 
   @Override
   public BookDto getBookById(Long id) {
-    return bookMapper.toDto(bookRepository.findBookById(id).orElse(null));
+    return bookMapper.toDto(bookRepository.findBookById(id)
+        .orElseThrow(() -> new BookNotFoundByIdException(id)));
   }
 
   @Override
   public BookDto getBookByIsbn(String isbn) {
-    return bookMapper.toDto(bookRepository.findBookByIsbn(isbn).orElse(null));
+    return bookMapper.toDto(bookRepository.findBookByIsbn(isbn)
+        .orElseThrow(() -> new BookNotFoundByIsbnException(isbn)));
   }
 
   @Override
   public void createBook(BookDto bookDto) {
-    Book newBook = bookRepository.save(bookMapper.toEntity(bookDto));
-    libraryFeignClient.addBook(newBook.getId());
+    if (bookRepository.existsByIsbn(bookDto.getIsbn())) {
+      throw new BookWithSameIsbnException(bookDto.getIsbn());
+    } else {
+      Book newBook = bookRepository.save(bookMapper.toEntity(bookDto));
+      libraryFeignClient.addBook(newBook.getId());
+    }
   }
 
   @Override
   public void updateBook(Long id, BookDto bookDto) {
-    Book existingBook = bookRepository.findById(id).orElse(null);
+    Book existingBook = bookRepository.findById(id)
+        .orElseThrow(() -> new BookNotFoundByIdException(id));
 
     if (bookDto.getIsbn() != null) {
       existingBook.setIsbn(bookDto.getIsbn());
@@ -69,8 +79,13 @@ public class BookServiceImpl implements BookService {
   }
 
   @Override
-  public void deleteBook(Long id) {
-    bookRepository.deleteById(id);
+  public void deleteBook(Long id) throws Exception {
+    if (!bookRepository.existsById(id)) {
+      throw new BookNotFoundByIdException(id);
+    } else {
+      libraryFeignClient.deleteBook(id);
+      bookRepository.deleteById(id);
+    }
   }
 
   @Override

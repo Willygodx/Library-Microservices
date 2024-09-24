@@ -19,6 +19,7 @@ This repository contains a simple microservices project as a tech task
 4. MapStruct;
 5. Authentication via bearer token (Spring Security, KeyCloak);
 6. Swagger
+7. JUnit & Mockito
 
 ## Getting Started
 
@@ -86,9 +87,9 @@ Port 5002 is for library-api-service
 
 1. To begin, you need to perform Keycloak server from docker
 
-2. Next, you need to create user on Keycloak server and give him role "ROLE_USER"
+2. Next, you need to create 2 users on Keycloak server and give them roles "ROLE_LIBRARIAN"(only for 1 user) and "ROLE_READER"(only for 1 user)
 
-3. Then you can make http request and get bearer token for authentication. Check the example below:
+3. Then you can make http requests and get bearer tokens for authentication. Check the example below:
 
 [Note] Without these steps you will not be able to make requests due to Spring Security!!!
 

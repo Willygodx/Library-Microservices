@@ -10,4 +10,9 @@ public interface LibraryService {
   LibraryDto updateBook(Long bookId);
 
   List<BookDto> getFreeBooks();
+
+  void deleteBook(Long bookId) throws Exception;
+
+  LibraryDto returnBook(Long bookId);
+
 }

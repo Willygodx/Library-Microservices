@@ -3,6 +3,7 @@ package by.ruslan.project.controller.inner.impl;
 import by.ruslan.project.controller.inner.BookController;
 import by.ruslan.project.dto.BookDto;
 import by.ruslan.project.service.BookService;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,7 +39,7 @@ public class BookControllerImpl implements BookController {
   }
 
   @PostMapping("/books")
-  public BookDto createBook(@RequestBody BookDto bookDto) {
+  public BookDto createBook(@RequestBody @Valid BookDto bookDto) {
     bookService.createBook(bookDto);
     return bookDto;
   }
@@ -49,13 +50,13 @@ public class BookControllerImpl implements BookController {
   }
 
   @PutMapping("/books/{id}")
-  public BookDto updateBook(@PathVariable Long id, @RequestBody BookDto bookDto) {
+  public BookDto updateBook(@PathVariable Long id, @RequestBody @Valid BookDto bookDto) {
     bookService.updateBook(id, bookDto);
     return bookDto;
   }
 
   @DeleteMapping("/books")
-  public void deleteBook(@RequestParam("id") Long id) {
+  public void deleteBook(@RequestParam("id") Long id) throws Exception {
     bookService.deleteBook(id);
   }
 }

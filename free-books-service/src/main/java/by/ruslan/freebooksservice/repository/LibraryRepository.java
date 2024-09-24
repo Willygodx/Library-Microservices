@@ -14,4 +14,5 @@ public interface LibraryRepository extends JpaRepository<Library, Long> {
   @Query("SELECT lb.bookId FROM Library lb WHERE lb.returnBy <= CURRENT_DATE OR lb.borrowedAt IS NULL")
   List<Long> findAvailableBooks();
 
+
 }

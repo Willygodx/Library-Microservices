@@ -1,33 +1,46 @@
 package by.ruslan.project.controller.inner;
 
 import by.ruslan.project.dto.BookDto;
+import by.ruslan.project.dto.Marker;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import java.util.List;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.validation.annotation.Validated;
 
 @Tag(name = "Book Controller", description =
     "This controller provides basic CRUD operations with books from library")
+@Validated
 public interface BookController {
 
   @Operation(summary = "Retrieving book by id from DB")
+  @SecurityRequirement(name = "JWT (all roles)")
   BookDto getBookById(Long id);
 
   @Operation(summary = "Retrieving a book by ISBN from DB")
+  @SecurityRequirement(name = "JWT (all roles)")
   BookDto getBookByIsbn(String isbn);
 
   @Operation(summary = "Retrieving a list of all books from DB")
+  @SecurityRequirement(name = "JWT (all roles)")
   List<BookDto> getAllBooks();
 
   @Operation(summary = "Creates a new book in DB")
-  BookDto createBook(BookDto bookDto);
+  @SecurityRequirement(name = "JWT (librarian role)")
+  @Validated(Marker.OnCreate.class)
+  BookDto createBook(@Valid BookDto bookDto);
 
   @Operation(summary = "Retrieving a list of books by a list of ids")
+  @SecurityRequirement(name = "JWT (all roles)")
   List<BookDto> getBooksByIds(List<Long> ids);
 
   @Operation(summary = "Updates existing book by id in DB")
-  BookDto updateBook(Long id, BookDto bookDto);
+  @SecurityRequirement(name = "JWT (librarian role)")
+  @Validated(Marker.OnUpdate.class)
+  BookDto updateBook(Long id, @Valid BookDto bookDto);
 
   @Operation(summary = "Deletes book by id")
-  void deleteBook(Long id);
+  @SecurityRequirement(name = "JWT (librarian role)")
+  void deleteBook(Long id) throws Exception;
 }

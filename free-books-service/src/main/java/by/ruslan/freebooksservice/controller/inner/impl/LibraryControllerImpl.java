@@ -6,6 +6,7 @@ import by.ruslan.freebooksservice.dto.BookDto;
 import by.ruslan.freebooksservice.service.impl.LibraryServiceImpl;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,7 +25,7 @@ public class LibraryControllerImpl implements LibraryController {
     return libraryServiceImpl.addBook(bookId);
   }
 
-  @PutMapping()
+  @PutMapping("/take")
   public LibraryDto takeBook(@RequestParam("bookId") Long bookId) {
     return libraryServiceImpl.updateBook(bookId);
   }
@@ -32,6 +33,16 @@ public class LibraryControllerImpl implements LibraryController {
   @GetMapping()
   public List<BookDto> getFreeBooks() {
     return libraryServiceImpl.getFreeBooks();
+  }
+
+  @DeleteMapping()
+  public void deleteBook(@RequestParam("bookId") Long bookId) throws Exception {
+    libraryServiceImpl.deleteBook(bookId);
+  }
+
+  @PutMapping("/return")
+  public LibraryDto returnBook(@RequestParam("bookId") Long bookId) {
+    return libraryServiceImpl.returnBook(bookId);
   }
 
 }
