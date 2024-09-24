@@ -14,9 +14,11 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -25,6 +27,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @ContextConfiguration(classes = {BookControllerImpl.class})
 @ExtendWith(SpringExtension.class)
 @DisabledInAotMode
+@ActiveProfiles("Book controller tests")
 class BookControllerImplTest {
   @Autowired
   private BookControllerImpl bookControllerImpl;
@@ -33,42 +36,14 @@ class BookControllerImplTest {
   private BookService bookService;
 
   @Test
-  void testGetBookById() throws Exception {
-    BookDto bookDto = new BookDto();
-    bookDto.setAuthor("JaneDoe");
-    bookDto.setDescription("The characteristics of someone or something");
-    bookDto.setGenre("Genre");
-    bookDto.setIsbn("Isbn");
-    bookDto.setName("Name");
-    when(bookService.getBookById(Mockito.<Long>any())).thenReturn(bookDto);
-    MockHttpServletRequestBuilder requestBuilder =
-        MockMvcRequestBuilders.get("/library/books/{id}", 1L);
-
-    MockMvcBuilders.standaloneSetup(bookControllerImpl)
-        .build()
-        .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-        .andExpect(MockMvcResultMatchers.content()
-            .string(
-                "{\"isbn\":\"Isbn\",\"name\":\"Name\",\"genre\":\"Genre\",\"description\":\"The characteristics of someone or"
-                    + " something\",\"author\":\"JaneDoe\"}"));
-  }
-
-  @Test
   void testGetBookByIsbn() throws Exception {
-    // Arrange
-    BookDto bookDto = new BookDto();
-    bookDto.setAuthor("JaneDoe");
-    bookDto.setDescription("The characteristics of someone or something");
-    bookDto.setGenre("Genre");
-    bookDto.setIsbn("Isbn");
-    bookDto.setName("Name");
-    when(bookService.getBookByIsbn(Mockito.<String>any())).thenReturn(bookDto);
+    when(bookService.getBookByIsbn(Mockito.<String>any()))
+        .thenReturn(
+            new BookDto("Isbn", "Name", "Genre", "The characteristics of someone or something",
+                "JaneDoe"));
     MockHttpServletRequestBuilder requestBuilder =
-        MockMvcRequestBuilders.get("/library/books/isbn/{isbn}", "Isbn");
+        MockMvcRequestBuilders.get("/library/books/get/{isbn}", "Isbn");
 
-    // Act and Assert
     MockMvcBuilders.standaloneSetup(bookControllerImpl)
         .build()
         .perform(requestBuilder)
@@ -95,13 +70,33 @@ class BookControllerImplTest {
 
   @Test
   void testCreateBook() throws Exception {
+    BookDto bookDto = new BookDto();
+    bookDto.setAuthor("JaneDoe");
+    bookDto.setDescription("The characteristics of someone or something");
+    bookDto.setGenre("Genre");
+    bookDto.setIsbn("Isbn");
+    bookDto.setName("Name");
+    String content = (new ObjectMapper()).writeValueAsString(bookDto);
+    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/library/books")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(content);
+
+    ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(bookControllerImpl)
+        .build()
+        .perform(requestBuilder);
+
+    actualPerformResult.andExpect(MockMvcResultMatchers.status().is(400));
+  }
+
+  @Test
+  void testCreateBook2() throws Exception {
     doNothing().when(bookService).createBook(Mockito.<BookDto>any());
 
     BookDto bookDto = new BookDto();
     bookDto.setAuthor("JaneDoe");
     bookDto.setDescription("The characteristics of someone or something");
     bookDto.setGenre("Genre");
-    bookDto.setIsbn("Isbn");
+    bookDto.setIsbn("978-9-999-99999-9");
     bookDto.setName("Name");
     String content = (new ObjectMapper()).writeValueAsString(bookDto);
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/library/books")
@@ -115,20 +110,16 @@ class BookControllerImplTest {
         .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
         .andExpect(MockMvcResultMatchers.content()
             .string(
-                "{\"isbn\":\"Isbn\",\"name\":\"Name\",\"genre\":\"Genre\",\"description\":\"The characteristics of someone or"
-                    + " something\",\"author\":\"JaneDoe\"}"));
+                "{\"isbn\":\"978-9-999-99999-9\",\"name\":\"Name\",\"genre\":\"Genre\",\"description\":\"The characteristics of someone"
+                    + " or something\",\"author\":\"JaneDoe\"}"));
   }
 
   @Test
-  void testGetBooksByIds() throws Exception {
-    when(bookService.getBooksByIds(Mockito.<List<Long>>any())).thenReturn(new ArrayList<>());
-    MockHttpServletRequestBuilder contentTypeResult =
-        MockMvcRequestBuilders.post("/library/books/by-ids")
-            .contentType(MediaType.APPLICATION_JSON);
-
-    ObjectMapper objectMapper = new ObjectMapper();
-    MockHttpServletRequestBuilder requestBuilder = contentTypeResult
-        .content(objectMapper.writeValueAsString(new ArrayList<>()));
+  void testGetBooksByIsbns() throws Exception {
+    when(bookService.getBooksByIsbns(Mockito.<List<String>>any())).thenReturn(new ArrayList<>());
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/library/books/{isbns}",
+            new ArrayList<>());
 
     MockMvcBuilders.standaloneSetup(bookControllerImpl)
         .build()
@@ -139,18 +130,35 @@ class BookControllerImplTest {
   }
 
   @Test
-  void testUpdateBook() throws Exception {
-    doNothing().when(bookService).updateBook(Mockito.<Long>any(), Mockito.<BookDto>any());
+  void testGetBooksByIsbns2() throws Exception {
+    when(bookService.getAllBooks()).thenReturn(new ArrayList<>());
+    when(bookService.getBooksByIsbns(Mockito.<List<String>>any())).thenReturn(new ArrayList<>());
+    new ArrayList<>();
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/library/books/{isbns}", "",
+            "Uri Variables");
+
+    MockMvcBuilders.standaloneSetup(bookControllerImpl)
+        .build()
+        .perform(requestBuilder)
+        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+        .andExpect(MockMvcResultMatchers.content().string("[]"));
+  }
+
+  @Test
+  void testUpdateBook2() throws Exception {
+    doNothing().when(bookService).updateBook(Mockito.<String>any(), Mockito.<BookDto>any());
 
     BookDto bookDto = new BookDto();
     bookDto.setAuthor("JaneDoe");
     bookDto.setDescription("The characteristics of someone or something");
     bookDto.setGenre("Genre");
-    bookDto.setIsbn("Isbn");
+    bookDto.setIsbn("978-9-999-99999-9");
     bookDto.setName("Name");
     String content = (new ObjectMapper()).writeValueAsString(bookDto);
     MockHttpServletRequestBuilder requestBuilder =
-        MockMvcRequestBuilders.put("/library/books/{id}", 1L)
+        MockMvcRequestBuilders.put("/library/books/{isbn}", "Isbn")
             .contentType(MediaType.APPLICATION_JSON)
             .content(content);
 
@@ -161,19 +169,40 @@ class BookControllerImplTest {
         .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
         .andExpect(MockMvcResultMatchers.content()
             .string(
-                "{\"isbn\":\"Isbn\",\"name\":\"Name\",\"genre\":\"Genre\",\"description\":\"The characteristics of someone or"
-                    + " something\",\"author\":\"JaneDoe\"}"));
+                "{\"isbn\":\"978-9-999-99999-9\",\"name\":\"Name\",\"genre\":\"Genre\",\"description\":\"The characteristics of someone"
+                    + " or something\",\"author\":\"JaneDoe\"}"));
   }
 
   @Test
   void testDeleteBook() throws Exception {
-    doNothing().when(bookService).deleteBook(Mockito.<Long>any());
-    MockHttpServletRequestBuilder deleteResult = MockMvcRequestBuilders.delete("/library/books");
-    MockHttpServletRequestBuilder requestBuilder = deleteResult.param("id", String.valueOf(1L));
+    doNothing().when(bookService).deleteBook(Mockito.<String>any());
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.delete("/library/books").param("isbn", "foo");
 
     MockMvcBuilders.standaloneSetup(bookControllerImpl)
         .build()
         .perform(requestBuilder)
         .andExpect(MockMvcResultMatchers.status().isOk());
+  }
+
+  @Test
+  void testUpdateBook() throws Exception {
+    BookDto bookDto = new BookDto();
+    bookDto.setAuthor("JaneDoe");
+    bookDto.setDescription("The characteristics of someone or something");
+    bookDto.setGenre("Genre");
+    bookDto.setIsbn("Isbn");
+    bookDto.setName("Name");
+    String content = (new ObjectMapper()).writeValueAsString(bookDto);
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.put("/library/books/{isbn}", "Isbn")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(content);
+
+    ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(bookControllerImpl)
+        .build()
+        .perform(requestBuilder);
+
+    actualPerformResult.andExpect(MockMvcResultMatchers.status().is(400));
   }
 }

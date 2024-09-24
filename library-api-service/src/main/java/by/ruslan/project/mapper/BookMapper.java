@@ -5,6 +5,7 @@ import by.ruslan.project.model.Book;
 import java.util.List;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 @Mapper(
     componentModel = "spring",
@@ -16,4 +17,6 @@ public interface BookMapper {
   Book toEntity(BookDto bookDto);
 
   List<BookDto> toListDto(List<Book> books);
+
+  void updateBookFromDto(BookDto bookDto, @MappingTarget Book book);
 }

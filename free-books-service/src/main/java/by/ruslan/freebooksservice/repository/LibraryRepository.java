@@ -8,11 +8,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LibraryRepository extends JpaRepository<Library, Long> {
-  Optional<Library> findByBookId(Long bookId);
+public interface LibraryRepository extends JpaRepository<Library, String> {
+  @Query("SELECT lb.isbn FROM Library lb WHERE lb.returnBy <= CURRENT_DATE OR lb.borrowedAt IS NULL")
+  List<String> findAvailableBooks();
 
-  @Query("SELECT lb.bookId FROM Library lb WHERE lb.returnBy <= CURRENT_DATE OR lb.borrowedAt IS NULL")
-  List<Long> findAvailableBooks();
+  boolean existsByIsbn(String isbn);
 
+  Optional<Library> findByIsbn(String isbn);
 
+  void deleteByIsbn(String isbn);
 }

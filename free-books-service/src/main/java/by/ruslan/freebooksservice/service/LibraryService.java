@@ -3,16 +3,18 @@ package by.ruslan.freebooksservice.service;
 import by.ruslan.freebooksservice.dto.BookDto;
 import by.ruslan.freebooksservice.dto.LibraryDto;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface LibraryService {
-  LibraryDto addBook(Long bookId);
+  LibraryDto addBook(String isbn);
 
-  LibraryDto updateBook(Long bookId);
+  LibraryDto updateBook(String isbn);
 
   List<BookDto> getFreeBooks();
 
-  void deleteBook(Long bookId) throws Exception;
+  void deleteBook(String isbn) throws Exception;
 
-  LibraryDto returnBook(Long bookId);
+  LibraryDto returnBook(String isbn);
 
 }

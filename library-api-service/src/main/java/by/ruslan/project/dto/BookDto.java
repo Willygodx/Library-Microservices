@@ -2,11 +2,15 @@ package by.ruslan.project.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class BookDto {
 
   @Pattern(message = "Invalid ISBN-13 format",
@@ -28,4 +32,5 @@ public class BookDto {
   @NotEmpty(message = "Author can't be empty", groups = {Marker.OnCreate.class,
       Marker.OnUpdate.class})
   private String author;
+
 }

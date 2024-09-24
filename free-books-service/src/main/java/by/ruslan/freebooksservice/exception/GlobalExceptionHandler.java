@@ -4,8 +4,8 @@ import by.ruslan.freebooksservice.dto.ExceptionDto;
 import by.ruslan.freebooksservice.exception.exceptions.BookAlreadyReturnedException;
 import by.ruslan.freebooksservice.exception.exceptions.BookAlreadyTakenException;
 import by.ruslan.freebooksservice.exception.exceptions.BookCannotBeDeletedException;
-import by.ruslan.freebooksservice.exception.exceptions.BookNotFoundByIdException;
-import by.ruslan.freebooksservice.exception.exceptions.BookWithSameIdException;
+import by.ruslan.freebooksservice.exception.exceptions.BookNotFoundByIsbnException;
+import by.ruslan.freebooksservice.exception.exceptions.BookWithSameIsbnException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -16,17 +16,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-  @ExceptionHandler(BookNotFoundByIdException.class)
+  @ExceptionHandler(BookNotFoundByIsbnException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
   @ResponseBody
-  public ExceptionDto handleBookNotFoundByIdException(BookNotFoundByIdException exception) {
+  public ExceptionDto handleBookNotFoundByIsbnException(BookNotFoundByIsbnException exception) {
     return new ExceptionDto(HttpStatus.NOT_FOUND, exception.getMessage());
   }
 
-  @ExceptionHandler(BookWithSameIdException.class)
+  @ExceptionHandler(BookWithSameIsbnException.class)
   @ResponseStatus(HttpStatus.CONFLICT)
   @ResponseBody
-  public ExceptionDto handleBookWithSameIdException(BookWithSameIdException exception) {
+  public ExceptionDto handleBookWithSameIsbnException(BookWithSameIsbnException exception) {
     return new ExceptionDto(HttpStatus.CONFLICT, exception.getMessage());
   }
 

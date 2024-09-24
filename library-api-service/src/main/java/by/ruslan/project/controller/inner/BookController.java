@@ -14,10 +14,6 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public interface BookController {
 
-  @Operation(summary = "Retrieving book by id from DB")
-  @SecurityRequirement(name = "JWT (all roles)")
-  BookDto getBookById(Long id);
-
   @Operation(summary = "Retrieving a book by ISBN from DB")
   @SecurityRequirement(name = "JWT (all roles)")
   BookDto getBookByIsbn(String isbn);
@@ -33,14 +29,14 @@ public interface BookController {
 
   @Operation(summary = "Retrieving a list of books by a list of ids")
   @SecurityRequirement(name = "JWT (all roles)")
-  List<BookDto> getBooksByIds(List<Long> ids);
+  List<BookDto> getBooksByIsbns(List<String> isbns);
 
   @Operation(summary = "Updates existing book by id in DB")
   @SecurityRequirement(name = "JWT (librarian role)")
   @Validated(Marker.OnUpdate.class)
-  BookDto updateBook(Long id, @Valid BookDto bookDto);
+  BookDto updateBook(String isbn, @Valid BookDto bookDto);
 
   @Operation(summary = "Deletes book by id")
   @SecurityRequirement(name = "JWT (librarian role)")
-  void deleteBook(Long id) throws Exception;
+  void deleteBook(String isbn) throws Exception;
 }

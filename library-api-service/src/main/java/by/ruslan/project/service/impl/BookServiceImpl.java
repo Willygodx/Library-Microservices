@@ -2,7 +2,6 @@ package by.ruslan.project.service.impl;
 
 import by.ruslan.project.controller.outer.LibraryFeignClient;
 import by.ruslan.project.dto.BookDto;
-import by.ruslan.project.exception.exceptions.BookNotFoundByIdException;
 import by.ruslan.project.exception.exceptions.BookNotFoundByIsbnException;
 import by.ruslan.project.exception.exceptions.BookWithSameIsbnException;
 import by.ruslan.project.mapper.BookMapper;
@@ -12,6 +11,7 @@ import by.ruslan.project.service.BookService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,67 +29,45 @@ public class BookServiceImpl implements BookService {
   }
 
   @Override
-  public BookDto getBookById(Long id) {
-    return bookMapper.toDto(bookRepository.findBookById(id)
-        .orElseThrow(() -> new BookNotFoundByIdException(id)));
-  }
-
-  @Override
   public BookDto getBookByIsbn(String isbn) {
     return bookMapper.toDto(bookRepository.findBookByIsbn(isbn)
         .orElseThrow(() -> new BookNotFoundByIsbnException(isbn)));
   }
 
   @Override
+  @Transactional
   public void createBook(BookDto bookDto) {
     if (bookRepository.existsByIsbn(bookDto.getIsbn())) {
       throw new BookWithSameIsbnException(bookDto.getIsbn());
     } else {
       Book newBook = bookRepository.save(bookMapper.toEntity(bookDto));
-      libraryFeignClient.addBook(newBook.getId());
+      libraryFeignClient.addBook(newBook.getIsbn());
     }
   }
 
   @Override
-  public void updateBook(Long id, BookDto bookDto) {
-    Book existingBook = bookRepository.findById(id)
-        .orElseThrow(() -> new BookNotFoundByIdException(id));
+  public void updateBook(String isbn, BookDto bookDto) {
+    Book existingBook = bookRepository.findBookByIsbn(isbn)
+        .orElseThrow(() -> new BookNotFoundByIsbnException(isbn));
 
-    if (bookDto.getIsbn() != null) {
-      existingBook.setIsbn(bookDto.getIsbn());
-    }
-
-    if (bookDto.getName() != null) {
-      existingBook.setName(bookDto.getName());
-    }
-
-    if (bookDto.getGenre() != null) {
-      existingBook.setGenre(bookDto.getGenre());
-    }
-
-    if (bookDto.getDescription() != null) {
-      existingBook.setDescription(bookDto.getDescription());
-    }
-
-    if (bookDto.getAuthor() != null) {
-      existingBook.setAuthor(bookDto.getAuthor());
-    }
+    bookMapper.updateBookFromDto(bookDto, existingBook);
 
     bookRepository.save(existingBook);
   }
 
   @Override
-  public void deleteBook(Long id) throws Exception {
-    if (!bookRepository.existsById(id)) {
-      throw new BookNotFoundByIdException(id);
+  @Transactional
+  public void deleteBook(String isbn) {
+    if (!bookRepository.existsByIsbn(isbn)) {
+      throw new BookNotFoundByIsbnException(isbn);
     } else {
-      libraryFeignClient.deleteBook(id);
-      bookRepository.deleteById(id);
+      libraryFeignClient.deleteBook(isbn);
+      bookRepository.deleteByIsbn(isbn);
     }
   }
 
   @Override
-  public List<BookDto> getBooksByIds(List<Long> ids) {
-    return bookMapper.toListDto(bookRepository.findBookByIdIn(ids));
+  public List<BookDto> getBooksByIsbns(List<String> isbns) {
+    return bookMapper.toListDto(bookRepository.findBookByIsbnIn(isbns));
   }
 }

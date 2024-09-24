@@ -6,8 +6,8 @@ import by.ruslan.freebooksservice.dto.BookDto;
 import by.ruslan.freebooksservice.exception.exceptions.BookAlreadyReturnedException;
 import by.ruslan.freebooksservice.exception.exceptions.BookAlreadyTakenException;
 import by.ruslan.freebooksservice.exception.exceptions.BookCannotBeDeletedException;
-import by.ruslan.freebooksservice.exception.exceptions.BookNotFoundByIdException;
-import by.ruslan.freebooksservice.exception.exceptions.BookWithSameIdException;
+import by.ruslan.freebooksservice.exception.exceptions.BookNotFoundByIsbnException;
+import by.ruslan.freebooksservice.exception.exceptions.BookWithSameIsbnException;
 import by.ruslan.freebooksservice.mapper.LibraryMapper;
 import by.ruslan.freebooksservice.model.Library;
 import by.ruslan.freebooksservice.repository.LibraryRepository;
@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,25 +27,25 @@ public class LibraryServiceImpl implements LibraryService {
 
   private final LibraryMapper libraryMapper;
 
-  public LibraryDto addBook(Long bookId) {
-    if (libraryRepository.existsById(bookId)) {
-      throw new BookWithSameIdException(bookId);
+  public LibraryDto addBook(String isbn) {
+    if (libraryRepository.existsByIsbn(isbn)) {
+      throw new BookWithSameIsbnException(isbn);
     } else {
 
       Library library = new Library();
-      library.setBookId(bookId);
+      library.setIsbn(isbn);
 
       libraryRepository.save(library);
       return libraryMapper.toDto(library);
     }
   }
 
-  public LibraryDto updateBook(Long bookId) {
-    Library library = libraryRepository.findByBookId(bookId)
-        .orElseThrow(() -> new BookNotFoundByIdException(bookId));
+  public LibraryDto updateBook(String isbn) {
+    Library library = libraryRepository.findByIsbn(isbn)
+        .orElseThrow(() -> new BookNotFoundByIsbnException(isbn));
 
     if (library.getReturnBy() != null && library.getBorrowedAt() != null) {
-      throw new BookAlreadyTakenException(bookId);
+      throw new BookAlreadyTakenException(isbn);
     } else {
 
       LocalDateTime borrowedAt = LocalDateTime.now();
@@ -58,27 +59,28 @@ public class LibraryServiceImpl implements LibraryService {
   }
 
   public List<BookDto> getFreeBooks() {
-    List<Long> freeBookIds = libraryRepository.findAvailableBooks();
-    return libraryFeignClient.getBooksByIds(freeBookIds);
+    List<String> freeBookIsbns = libraryRepository.findAvailableBooks();
+    return libraryFeignClient.getBooksByIsbns(freeBookIsbns);
   }
 
-  public void deleteBook(Long bookId) throws Exception {
-    Library library = libraryRepository.findByBookId(bookId)
-        .orElseThrow(() -> new BookNotFoundByIdException(bookId));
+  @Transactional
+  public void deleteBook(String isbn) {
+    Library library = libraryRepository.findByIsbn(isbn)
+        .orElseThrow(() -> new BookNotFoundByIsbnException(isbn));
 
     if (library.getBorrowedAt() != null && library.getReturnBy() != null) {
-      throw new BookCannotBeDeletedException(bookId);
+      throw new BookCannotBeDeletedException(isbn);
     } else {
-      libraryRepository.deleteById(bookId);
+      libraryRepository.deleteByIsbn(isbn);
     }
   }
 
-  public LibraryDto returnBook(Long bookId) {
-    Library library = libraryRepository.findByBookId(bookId)
-        .orElseThrow(() -> new BookNotFoundByIdException(bookId));
+  public LibraryDto returnBook(String isbn) {
+    Library library = libraryRepository.findByIsbn(isbn)
+        .orElseThrow(() -> new BookNotFoundByIsbnException(isbn));
 
     if (library.getBorrowedAt() == null && library.getReturnBy() == null) {
-      throw new BookAlreadyReturnedException(bookId);
+      throw new BookAlreadyReturnedException(isbn);
     } else {
 
       library.setReturnBy(null);

@@ -1,7 +1,6 @@
 package by.ruslan.project.exception;
 
 import by.ruslan.project.dto.ExceptionDto;
-import by.ruslan.project.exception.exceptions.BookNotFoundByIdException;
 import by.ruslan.project.exception.exceptions.BookNotFoundByIsbnException;
 import by.ruslan.project.exception.exceptions.BookWithSameIsbnException;
 import by.ruslan.project.exception.validation.Validation;
@@ -17,13 +16,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-
-  @ExceptionHandler(BookNotFoundByIdException.class)
-  @ResponseStatus(HttpStatus.NOT_FOUND)
-  @ResponseBody
-  public ExceptionDto handleBookNotFoundByIdException(BookNotFoundByIdException exception) {
-    return new ExceptionDto(HttpStatus.NOT_FOUND, exception.getMessage());
-  }
 
   @ExceptionHandler(BookNotFoundByIsbnException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)

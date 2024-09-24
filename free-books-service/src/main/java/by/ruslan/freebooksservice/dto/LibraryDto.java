@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class LibraryDto {
 
-  private Long bookId;
+  private String isbn;
 
   private LocalDateTime borrowedAt;
 

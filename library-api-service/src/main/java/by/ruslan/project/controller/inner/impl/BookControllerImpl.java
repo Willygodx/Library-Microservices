@@ -23,13 +23,8 @@ public class BookControllerImpl implements BookController {
 
   private final BookService bookService;
 
-  @GetMapping("/books/{id}")
-  public BookDto getBookById(@PathVariable Long id) {
-    return bookService.getBookById(id);
-  }
-
-  @GetMapping("/books/isbn/{isbn}")
-  public BookDto getBookByIsbn(@PathVariable String isbn) {
+  @GetMapping("/books/get/{isbn}")
+  public BookDto getBookByIsbn(@PathVariable("isbn") String isbn) {
     return bookService.getBookByIsbn(isbn);
   }
 
@@ -44,19 +39,19 @@ public class BookControllerImpl implements BookController {
     return bookDto;
   }
 
-  @PostMapping("/books/by-ids")
-  public List<BookDto> getBooksByIds(@RequestBody List<Long> ids) {
-    return bookService.getBooksByIds(ids);
+  @GetMapping("/books/{isbns}")
+  public List<BookDto> getBooksByIsbns(@PathVariable List<String> isbns) {
+    return bookService.getBooksByIsbns(isbns);
   }
 
-  @PutMapping("/books/{id}")
-  public BookDto updateBook(@PathVariable Long id, @RequestBody @Valid BookDto bookDto) {
-    bookService.updateBook(id, bookDto);
+  @PutMapping("/books/{isbn}")
+  public BookDto updateBook(@PathVariable("isbn") String isbn, @RequestBody @Valid BookDto bookDto) {
+    bookService.updateBook(isbn, bookDto);
     return bookDto;
   }
 
   @DeleteMapping("/books")
-  public void deleteBook(@RequestParam("id") Long id) throws Exception {
-    bookService.deleteBook(id);
+  public void deleteBook(@RequestParam("isbn") String isbn) throws Exception {
+    bookService.deleteBook(isbn);
   }
 }

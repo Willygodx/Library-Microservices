@@ -21,13 +21,13 @@ public class LibraryControllerImpl implements LibraryController {
   private final LibraryServiceImpl libraryServiceImpl;
 
   @PostMapping()
-  public LibraryDto addBook(@RequestParam("bookId") Long bookId) {
-    return libraryServiceImpl.addBook(bookId);
+  public LibraryDto addBook(@RequestParam("isbn") String isbn) {
+    return libraryServiceImpl.addBook(isbn);
   }
 
   @PutMapping("/take")
-  public LibraryDto takeBook(@RequestParam("bookId") Long bookId) {
-    return libraryServiceImpl.updateBook(bookId);
+  public LibraryDto takeBook(@RequestParam("isbn") String isbn) {
+    return libraryServiceImpl.updateBook(isbn);
   }
 
   @GetMapping()
@@ -36,13 +36,13 @@ public class LibraryControllerImpl implements LibraryController {
   }
 
   @DeleteMapping()
-  public void deleteBook(@RequestParam("bookId") Long bookId) throws Exception {
-    libraryServiceImpl.deleteBook(bookId);
+  public void deleteBook(@RequestParam("isbn") String isbn) {
+    libraryServiceImpl.deleteBook(isbn);
   }
 
   @PutMapping("/return")
-  public LibraryDto returnBook(@RequestParam("bookId") Long bookId) {
-    return libraryServiceImpl.returnBook(bookId);
+  public LibraryDto returnBook(@RequestParam("isbn") String isbn) {
+    return libraryServiceImpl.returnBook(isbn);
   }
 
 }

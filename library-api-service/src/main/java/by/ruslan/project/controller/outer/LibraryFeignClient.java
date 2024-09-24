@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface LibraryFeignClient {
 
   @PostMapping("/free-books")
-  void addBook(@RequestParam("bookId") Long bookId);
+  void addBook(@RequestParam("isbn") String isbn);
 
   @DeleteMapping("/free-books")
-  void deleteBook(@RequestParam("bookId") Long bookId);
+  void deleteBook(@RequestParam("isbn") String isbn);
 
 }
