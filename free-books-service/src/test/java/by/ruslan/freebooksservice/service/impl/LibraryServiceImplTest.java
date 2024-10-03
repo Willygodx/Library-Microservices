@@ -113,6 +113,11 @@ public class LibraryServiceImplTest {
   }
 
   @Test
+  void testUpdateBookNotFound() {
+    assertThrows(BookNotFoundByIsbnException.class, () -> libraryService.updateBook("Not exist"));
+  }
+
+  @Test
   void testGetFreeBooksSuccess() {
     Library library = new Library();
     library.setIsbn("978-1-306-10299-7");

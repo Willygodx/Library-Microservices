@@ -1,25 +1,19 @@
-package by.ruslan.project.config;
+package by.ruslan.freebooksservice.config;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import by.ruslan.project.configuration.SecurityConfig;
-import by.ruslan.project.controller.outer.LibraryFeignClient;
-import by.ruslan.project.dto.BookDto;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import by.ruslan.freebooksservice.configuration.SecurityConfig;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -41,12 +35,6 @@ public class SecurityConfigTest {
   @Autowired
   private MockMvc mockMvc;
 
-  @Autowired
-  private ObjectMapper objectMapper;
-
-  @MockBean
-  private LibraryFeignClient libraryFeignClient;
-
   @BeforeAll
   public static void setUp() {
     postgreSQLContainer.start();
@@ -67,52 +55,30 @@ public class SecurityConfigTest {
 
   @Test
   public void testUnauthenticatedAccessDenied() throws Exception {
-    mockMvc.perform(get("/library/books")).andExpect(status().isUnauthorized());
+    mockMvc.perform(get("/free-books")).andExpect(status().isUnauthorized());
   }
 
   @Test
   @WithMockUser(roles = "USER")
-  public void testAuthenticatedUserCanAccessBooks() throws Exception {
-    mockMvc.perform(get("/library/books")).andExpect(status().isOk());
-  }
+  public void testAuthenticatedUserCannotModifyFreeBooks() throws Exception {
+    mockMvc.perform(post("/free-books").with(csrf()))
+        .andExpect(status().isForbidden());
 
-  @Test
-  @WithMockUser(roles = "USER")
-  public void testUserCannotModifyBooks() throws Exception {
-    mockMvc.perform(post("/library/books").with(csrf())).andExpect(status().isForbidden());
-    mockMvc.perform(put("/library/books").with(csrf())).andExpect(status().isForbidden());
-    mockMvc.perform(delete("/library/books").with(csrf())).andExpect(status().isForbidden());
+    mockMvc.perform(delete("/free-books").with(csrf()))
+        .andExpect(status().isForbidden());
   }
 
   @Test
   @WithMockUser(roles = "LIBRARIAN")
-  public void testLibrarianCanModifyBooks() throws Exception {
-    String isbn = "978-1-234-56789-3";
-
-    BookDto bookDto = new BookDto();
-    bookDto.setIsbn(isbn);
-    bookDto.setName("Test Book");
-    bookDto.setGenre("Test genre");
-    bookDto.setDescription("Test description");
-    bookDto.setAuthor("Test Author");
-
-    String bookJson = objectMapper.writeValueAsString(bookDto);
-
-    mockMvc.perform(post("/library/books")
+  public void testLibrarianCanModifyFreeBooks() throws Exception {
+    mockMvc.perform(post("/free-books")
             .with(csrf())
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(bookJson))
+            .param("isbn", "978-1-234-56789-3"))
         .andExpect(status().isOk());
 
-    bookDto.setName("Updated Test Book");
-    bookDto.setDescription("Updated Test description");
-    String updatedBookJson = objectMapper.writeValueAsString(bookDto);
-
-    mockMvc.perform(put("/library/books/{isbn}", isbn)
+    mockMvc.perform(delete("/free-books")
             .with(csrf())
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(updatedBookJson))
+            .param("isbn", "978-1-234-56789-3"))
         .andExpect(status().isOk());
-
   }
 }

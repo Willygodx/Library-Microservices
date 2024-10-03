@@ -30,7 +30,7 @@ public interface LibraryController {
   @SecurityRequirement(name = "JWT (librarian role)")
   void deleteBook(String isbn) throws Exception;
 
-  @Operation(summary = "Returning a book to a library (columns from database will be null except id)")
+  @Operation(summary = "Returning a book to a library (columns from database will be null except isbn )")
   @SecurityRequirement(name = "JWT (all roles)")
   LibraryDto returnBook(String isbn);
 }

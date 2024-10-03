@@ -27,16 +27,16 @@ public interface BookController {
   @Validated(Marker.OnCreate.class)
   BookDto createBook(@Valid BookDto bookDto);
 
-  @Operation(summary = "Retrieving a list of books by a list of ids")
+  @Operation(summary = "Retrieving a list of books by a list of isbns")
   @SecurityRequirement(name = "JWT (all roles)")
   List<BookDto> getBooksByIsbns(List<String> isbns);
 
-  @Operation(summary = "Updates existing book by id in DB")
+  @Operation(summary = "Updates existing book by isbn in DB")
   @SecurityRequirement(name = "JWT (librarian role)")
   @Validated(Marker.OnUpdate.class)
   BookDto updateBook(String isbn, @Valid BookDto bookDto);
 
-  @Operation(summary = "Deletes book by id")
+  @Operation(summary = "Deletes book by isbn")
   @SecurityRequirement(name = "JWT (librarian role)")
   void deleteBook(String isbn) throws Exception;
 }
