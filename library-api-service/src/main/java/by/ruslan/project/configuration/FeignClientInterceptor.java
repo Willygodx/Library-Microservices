@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class FeignClientInterceptor implements RequestInterceptor {
 
+  private static final String FEIGN_CLIENT_HEADER = "X-Feign-Client";
+
   @Override
   public void apply(RequestTemplate template) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -17,5 +19,6 @@ public class FeignClientInterceptor implements RequestInterceptor {
       Jwt jwt = (Jwt) authentication.getPrincipal();
       template.header("Authorization", "Bearer " + jwt.getTokenValue());
     }
+    template.header(FEIGN_CLIENT_HEADER, "true");
   }
 }

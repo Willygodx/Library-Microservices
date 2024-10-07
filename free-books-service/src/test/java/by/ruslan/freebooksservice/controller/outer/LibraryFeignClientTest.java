@@ -1,51 +1,87 @@
 package by.ruslan.freebooksservice.controller.outer;
 
-import by.ruslan.freebooksservice.dto.BookDto;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ActiveProfiles;
-
-import java.util.List;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
-import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@ActiveProfiles("test")
-public class LibraryFeignClientTest {
+import by.ruslan.freebooksservice.dto.BookDto;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-  @Autowired
+@SpringJUnitConfig
+@Import(LibraryFeignClientTest.Config.class)
+class LibraryFeignClientTest {
+
+  @Mock
   private LibraryFeignClient libraryFeignClient;
 
-  @MockBean
-  private LibraryFeignClient libraryFeignClientMock;
-
-  @Test
-  public void testGetBooksByIsbns() {
-    List<String> isbns = List.of("978-0-399-15779-1", "978-0-399-15779-2");
-    List<BookDto> expectedBooks = List.of(
-        new BookDto("1234567890", "Book1", "Genre1", "Description1", "Author1"),
-        new BookDto("0987654321", "Book2", "Genre2", "Description2", "Author2")
-    );
-
-    when(libraryFeignClientMock.getBooksByIsbns(isbns)).thenReturn(expectedBooks);
-
-    List<BookDto> actualBooks = libraryFeignClient.getBooksByIsbns(isbns);
-
-    assertThat(actualBooks).isEqualTo(expectedBooks);
+  @BeforeEach
+  void setUp() {
+    MockitoAnnotations.openMocks(this);
   }
 
   @Test
-  public void testGetBooksByIsbnsNotFound() {
-    List<String> isbns = List.of("978-0-399-15779-1", "978-0-399-15779-2");
+  void testGetBooksByIsbns_Success() {
+    List<String> isbns = Arrays.asList("978-3-16-148410-0", "978-1-4028-9462-6");
+    BookDto book1 = new BookDto("978-3-16-148410-0", "Book 1", "Genre 1", "Description 1", "Author 1");
+    BookDto book2 = new BookDto("978-1-4028-9462-6", "Book 2", "Genre 2", "Description 2", "Author 2");
+    List<BookDto> mockResponse = Arrays.asList(book1, book2);
 
-    when(libraryFeignClientMock.getBooksByIsbns(isbns)).thenThrow(new RuntimeException("404 Not Found"));
+    when(libraryFeignClient.getBooksByIsbns(isbns)).thenReturn(mockResponse);
 
-    assertThatThrownBy(() -> libraryFeignClient.getBooksByIsbns(isbns))
-        .isInstanceOf(RuntimeException.class)
-        .hasMessage("404 Not Found");
+    List<BookDto> result = libraryFeignClient.getBooksByIsbns(isbns);
+    assertEquals(2, result.size());
+    assertEquals("Book 1", result.get(0).getName());
+    assertEquals("Book 2", result.get(1).getName());
+  }
+
+  @Test
+  void testGetBooksByIsbns_EmptyIsbnsList() {
+    List<String> isbns = Collections.emptyList();
+
+    when(libraryFeignClient.getBooksByIsbns(isbns)).thenReturn(Collections.emptyList());
+
+    List<BookDto> result = libraryFeignClient.getBooksByIsbns(isbns);
+    assertEquals(0, result.size());
+  }
+
+  @Test
+  void testGetBooksByIsbns_InvalidIsbn() {
+    List<String> isbns = Arrays.asList("invalid-isbn");
+
+    when(libraryFeignClient.getBooksByIsbns(isbns)).thenReturn(Collections.emptyList());
+
+    List<BookDto> result = libraryFeignClient.getBooksByIsbns(isbns);
+    assertEquals(0, result.size());
+  }
+
+  @Test
+  void testGetBooksByIsbns_ThrowsException() {
+    List<String> isbns = Arrays.asList("978-3-16-148410-0");
+
+    when(libraryFeignClient.getBooksByIsbns(isbns)).thenThrow(new RuntimeException("Service unavailable"));
+
+    try {
+      libraryFeignClient.getBooksByIsbns(isbns);
+    } catch (Exception e) {
+      assertEquals("Service unavailable", e.getMessage());
+    }
+  }
+
+  @TestConfiguration
+  static class Config {
+    @Bean
+    public LibraryFeignClient libraryFeignClient() {
+      return Mockito.mock(LibraryFeignClient.class);
+    }
   }
 }

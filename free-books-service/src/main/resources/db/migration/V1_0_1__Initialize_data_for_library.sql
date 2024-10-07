@@ -1,8 +1,8 @@
 insert into free_books(isbn) values ('978-0-306-40615-7');
-insert into free_books(isbn) values ('978-0-06-112008-4');
+insert into free_books(isbn) values ('978-0-060-11208-4');
 insert into free_books(isbn) values ('978-0-451-52493-5');
 insert into free_books(isbn) values ('978-0-679-72316-5');
-insert into free_books(isbn) values ('978-0-06-093546-7');
+insert into free_books(isbn) values ('978-0-060-93546-7');
 insert into free_books(isbn) values ('978-0-399-50148-7');
 insert into free_books(isbn) values ('978-0-385-49081-8');
 insert into free_books(isbn) values ('978-0-399-15781-0');

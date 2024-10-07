@@ -2,8 +2,8 @@ package by.ruslan.project.service.impl;
 
 import by.ruslan.project.controller.outer.LibraryFeignClient;
 import by.ruslan.project.dto.BookDto;
-import by.ruslan.project.exception.exceptions.BookNotFoundByIsbnException;
-import by.ruslan.project.exception.exceptions.BookWithSameIsbnException;
+import by.ruslan.project.controller.outer.exception.exceptions.BookNotFoundByIsbnException;
+import by.ruslan.project.controller.outer.exception.exceptions.BookWithSameIsbnException;
 import by.ruslan.project.mapper.BookMapper;
 import by.ruslan.project.model.Book;
 import by.ruslan.project.repositories.BookRepository;

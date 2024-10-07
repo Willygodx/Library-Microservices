@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import by.ruslan.project.controller.outer.LibraryFeignClient;
 import by.ruslan.project.dto.BookDto;
-import by.ruslan.project.exception.exceptions.BookWithSameIsbnException;
-import by.ruslan.project.exception.exceptions.BookNotFoundByIsbnException;
+import by.ruslan.project.controller.outer.exception.exceptions.BookWithSameIsbnException;
+import by.ruslan.project.controller.outer.exception.exceptions.BookNotFoundByIsbnException;
 import by.ruslan.project.model.Book;
 import by.ruslan.project.repositories.BookRepository;
 import java.util.List;

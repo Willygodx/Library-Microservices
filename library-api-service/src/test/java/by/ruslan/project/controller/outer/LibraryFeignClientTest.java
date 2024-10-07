@@ -1,71 +1,75 @@
 package by.ruslan.project.controller.outer;
 
-import by.ruslan.project.configuration.FeignClientConfig;
 import feign.FeignException;
-import feign.Request;
-import feign.RequestTemplate;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.mockito.Mockito;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Collections;
+@SpringJUnitConfig
+@Import(LibraryFeignClientTest.Config.class)
+class LibraryFeignClientTest {
 
-import static org.mockito.Mockito.*;
-
-@SpringBootTest
-@ActiveProfiles("test")
-public class LibraryFeignClientTest {
-
-  @Mock
+  @MockBean
   private LibraryFeignClient libraryFeignClient;
 
-  @BeforeEach
-  public void setUp() {
-    MockitoAnnotations.openMocks(this);
-  }
-
   @Test
-  public void testAddBook() {
-    String isbn = "178-0-06-093546-1";
+  void testAddBook() {
+    String isbn = "978-3-16-148410-0";
     libraryFeignClient.addBook(isbn);
-    verify(libraryFeignClient, times(1)).addBook(isbn);
+    Mockito.verify(libraryFeignClient).addBook(isbn);
   }
 
   @Test
-  public void testDeleteBook() {
-    String isbn = "178-0-06-093546-1";
+  void testDeleteBook() {
+    String isbn = "978-3-16-148410-0";
     libraryFeignClient.deleteBook(isbn);
-    verify(libraryFeignClient, times(1)).deleteBook(isbn);
+    Mockito.verify(libraryFeignClient).deleteBook(isbn);
   }
 
   @Test
-  public void testAddBookErrorHandling() {
-    String isbn = "178-0-06-093546-1";
-    Request request = Request.create(Request.HttpMethod.POST, "/free-books", Collections.emptyMap(), null, StandardCharsets.UTF_8, new RequestTemplate());
-    doThrow(new FeignException.FeignClientException(404, "Not Found", request, null, null)).when(libraryFeignClient).addBook(isbn);
+  void testAddBookWithLongIsbn() {
+    String longIsbn = "978-3-16-148410-012345678901234567890";
+    libraryFeignClient.addBook(longIsbn);
+    Mockito.verify(libraryFeignClient).addBook(longIsbn);
+  }
 
-    try {
+  @Test
+  void testDeleteBookWithLongIsbn() {
+    String longIsbn = "978-3-16-148410-012345678901234567890";
+    libraryFeignClient.deleteBook(longIsbn);
+    Mockito.verify(libraryFeignClient).deleteBook(longIsbn);
+  }
+
+  @Test
+  void testAddBookFeignException() {
+    String isbn = "978-3-16-148410-0";
+    Mockito.doThrow(FeignException.class).when(libraryFeignClient).addBook(isbn);
+
+    Assertions.assertThrows(FeignException.class, () -> {
       libraryFeignClient.addBook(isbn);
-    } catch (FeignException e) {
-      assert e.status() == 404;
-    }
+    });
   }
 
   @Test
-  public void testDeleteBookErrorHandling() {
-    String isbn = "178-0-06-093546-1";
-    Request request = Request.create(Request.HttpMethod.DELETE, "/free-books", Collections.emptyMap(), null, StandardCharsets.UTF_8, new RequestTemplate());
-    doThrow(new FeignException.FeignClientException(404, "Not Found", request, null, null)).when(libraryFeignClient).deleteBook(isbn);
+  void testDeleteBookFeignException() {
+    String isbn = "978-3-16-148410-0";
+    Mockito.doThrow(FeignException.class).when(libraryFeignClient).deleteBook(isbn);
 
-    try {
+    Assertions.assertThrows(FeignException.class, () -> {
       libraryFeignClient.deleteBook(isbn);
-    } catch (FeignException e) {
-      assert e.status() == 404;
+    });
+  }
+
+  @TestConfiguration
+  static class Config {
+    @Bean
+    public LibraryFeignClient libraryFeignClient() {
+      return Mockito.mock(LibraryFeignClient.class);
     }
   }
 }

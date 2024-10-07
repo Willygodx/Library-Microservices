@@ -1,4 +1,4 @@
-package by.ruslan.project.exception.exceptions;
+package by.ruslan.project.controller.outer.exception.exceptions;
 
 public class BookWithSameIsbnException extends RuntimeException {
   public BookWithSameIsbnException(String isbn) {

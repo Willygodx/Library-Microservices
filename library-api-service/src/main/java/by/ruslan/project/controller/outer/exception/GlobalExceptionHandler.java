@@ -1,10 +1,10 @@
-package by.ruslan.project.exception;
+package by.ruslan.project.controller.outer.exception;
 
 import by.ruslan.project.dto.ExceptionDto;
-import by.ruslan.project.exception.exceptions.BookNotFoundByIsbnException;
-import by.ruslan.project.exception.exceptions.BookWithSameIsbnException;
-import by.ruslan.project.exception.validation.Validation;
-import by.ruslan.project.exception.validation.ValidationResponse;
+import by.ruslan.project.controller.outer.exception.exceptions.BookNotFoundByIsbnException;
+import by.ruslan.project.controller.outer.exception.exceptions.BookWithSameIsbnException;
+import by.ruslan.project.controller.outer.exception.validation.Validation;
+import by.ruslan.project.controller.outer.exception.validation.ValidationResponse;
 import jakarta.validation.ConstraintViolationException;
 import java.util.List;
 import org.springframework.http.HttpStatus;

@@ -1,0 +1,354 @@
+{
+	"info": {
+		"_postman_id": "6d88b1dc-2353-4bbd-a489-8a9537946d1e",
+		"name": "Library Microservices API",
+		"description": "This collection contains all HTTP requests from Library Service and Free Books Service!",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33118232"
+	},
+	"item": [
+		{
+			"name": "Library Service",
+			"item": [
+				{
+					"name": "Get book by ISBN",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJXMUE5Z2syMGNoNUJvQzBUbF9VZU1rODlxTkFFZDFrVW1LQ1oyX0JpNGtFIn0.eyJleHAiOjE3MjgzMTgyMjEsImlhdCI6MTcyODMxNjQyMSwianRpIjoiOTdkMjdmMjQtYzIxNS00NWVjLWJlODktZjYwNjRhODFjNjNlIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy93aWxseSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI3NmExMTIzZS02ODdlLTQ4MDItYTA0ZS1kZTQ5ZTQ1ZjBiZTQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJzcHJpbmdzZWN1cml0eSIsInNlc3Npb25fc3RhdGUiOiI4M2E4YThiMy00OTk2LTQwZjQtYjlmNS1jNjU3YmM3ZWQwMTkiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODA3OSJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy13aWxseSIsIm9mZmxpbmVfYWNjZXNzIiwiUk9MRV9SRUFERVIiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjgzYThhOGIzLTQ5OTYtNDBmNC1iOWY1LWM2NTdiYzdlZDAxOSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiSmFjayBEYW5pZWxzIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiai5kYW5pZWxzIiwiZ2l2ZW5fbmFtZSI6IkphY2siLCJmYW1pbHlfbmFtZSI6IkRhbmllbHMiLCJlbWFpbCI6ImouZGFuaWVsc0BnbWFpbC5jb20ifQ.0LAhqrRLeP96rwaJvV64n4bhFJx75kwPdwsVSoZnBOccJPLNwVXegvvIHkZNqVbkFECIb5BsaNNU_salgQdIvsnFWfoeD1fLR9Zl5qYi6_QSfb0x07LhK8sYn9-tSo0HuAzBGK7rte_D4WM96-Hcz0YBR2vvzy4RGk-9xkVgJ9T--yeYf3PpYygqCRlDxc1wVMzAnXO3tMKuBlkKULrWlQtljHIlsIlf2mMqTq_5xZOBgu7r3WzAtRlq3P9lJEE0rWK2ZY0IPgDOJqZNrtQLOWI0V8pblGGDqdDQ6T9eitIIZhA15scAbTv26CxJzdKzEP1iH_1cRwdJGSn0m2khNA"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8081/library/books/get/978-0-306-40615-7"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all books",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJXMUE5Z2syMGNoNUJvQzBUbF9VZU1rODlxTkFFZDFrVW1LQ1oyX0JpNGtFIn0.eyJleHAiOjE3MjgzMTgyMjEsImlhdCI6MTcyODMxNjQyMSwianRpIjoiOTdkMjdmMjQtYzIxNS00NWVjLWJlODktZjYwNjRhODFjNjNlIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy93aWxseSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI3NmExMTIzZS02ODdlLTQ4MDItYTA0ZS1kZTQ5ZTQ1ZjBiZTQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJzcHJpbmdzZWN1cml0eSIsInNlc3Npb25fc3RhdGUiOiI4M2E4YThiMy00OTk2LTQwZjQtYjlmNS1jNjU3YmM3ZWQwMTkiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODA3OSJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy13aWxseSIsIm9mZmxpbmVfYWNjZXNzIiwiUk9MRV9SRUFERVIiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjgzYThhOGIzLTQ5OTYtNDBmNC1iOWY1LWM2NTdiYzdlZDAxOSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiSmFjayBEYW5pZWxzIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiai5kYW5pZWxzIiwiZ2l2ZW5fbmFtZSI6IkphY2siLCJmYW1pbHlfbmFtZSI6IkRhbmllbHMiLCJlbWFpbCI6ImouZGFuaWVsc0BnbWFpbC5jb20ifQ.0LAhqrRLeP96rwaJvV64n4bhFJx75kwPdwsVSoZnBOccJPLNwVXegvvIHkZNqVbkFECIb5BsaNNU_salgQdIvsnFWfoeD1fLR9Zl5qYi6_QSfb0x07LhK8sYn9-tSo0HuAzBGK7rte_D4WM96-Hcz0YBR2vvzy4RGk-9xkVgJ9T--yeYf3PpYygqCRlDxc1wVMzAnXO3tMKuBlkKULrWlQtljHIlsIlf2mMqTq_5xZOBgu7r3WzAtRlq3P9lJEE0rWK2ZY0IPgDOJqZNrtQLOWI0V8pblGGDqdDQ6T9eitIIZhA15scAbTv26CxJzdKzEP1iH_1cRwdJGSn0m2khNA"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8081/library/books"
+					},
+					"response": []
+				},
+				{
+					"name": "Create new book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJXMUE5Z2syMGNoNUJvQzBUbF9VZU1rODlxTkFFZDFrVW1LQ1oyX0JpNGtFIn0.eyJleHAiOjE3MjgzMjU2MjksImlhdCI6MTcyODMyMzgyOSwianRpIjoiNjI4NjFjYTQtMWE3ZS00MDRjLTk0OWMtYTAyODFkYWQyOGIyIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy93aWxseSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIzOTUxMWQ3Yi0wNmRkLTRmODYtOWRmMS1iZmMyYjRjMzgxNTAiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJzcHJpbmdzZWN1cml0eSIsInNlc3Npb25fc3RhdGUiOiJhYThhYmRkOS04NjU2LTQ4NTItYWE4Ni0wYTczYTEyMTE0MzQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODA3OSJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy13aWxseSIsIm9mZmxpbmVfYWNjZXNzIiwiUk9MRV9MSUJSQVJJQU4iLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6ImFhOGFiZGQ5LTg2NTYtNDg1Mi1hYTg2LTBhNzNhMTIxMTQzNCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiVmxhZGltaXIgQWxoYXZhIiwicHJlZmVycmVkX3VzZXJuYW1lIjoibGlicmFyaWFuIiwiZ2l2ZW5fbmFtZSI6IlZsYWRpbWlyIiwiZmFtaWx5X25hbWUiOiJBbGhhdmEiLCJlbWFpbCI6ImxpYnJhcmlhbkBnbWFpbC5jb20ifQ.1HNHnstayzGmukRi7ORBIW8ewZG68uZcm2qSV07V-AvSJU81k_txXnL47v38f5JCSYjOREpeHbX6EC5oOZSWfGweai7rvWLT10cnMntPD1NdOoP7tVDZh5jJiCqCkA2elDnj_PZk2ZFKrUGdNrGnE09DCu4p2JrYbPgF6BepXDqB4DpXVHvok6QtMqhsXfCNUMxd6wRFy2yVRWz_dSimO7aOZwyx-gY2NK9wTz-kLSIWshkU7sszqC8ujoSfNI525_wgq3DQ7ogZ5IANmMkynH5T0RyvJVVPdACVpDDSRWaPNafJnmvJCDL611TDyouSMisG-EY5RqOnhhIj3zLoXg"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"isbn\": \"978-9-999-00000-9\",\n    \"name\": \"Test name1\",\n    \"genre\": \"Test genre1\",\n    \"description\": \"Test description1\",\n    \"author\": \"Test author1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8081/library/books",
+						"description": "This request also creates a new row in db at Free Books Service!"
+					},
+					"response": []
+				},
+				{
+					"name": "Get books by ISBNs (used for another service)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJXMUE5Z2syMGNoNUJvQzBUbF9VZU1rODlxTkFFZDFrVW1LQ1oyX0JpNGtFIn0.eyJleHAiOjE3MjgzMTgyMjEsImlhdCI6MTcyODMxNjQyMSwianRpIjoiOTdkMjdmMjQtYzIxNS00NWVjLWJlODktZjYwNjRhODFjNjNlIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy93aWxseSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI3NmExMTIzZS02ODdlLTQ4MDItYTA0ZS1kZTQ5ZTQ1ZjBiZTQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJzcHJpbmdzZWN1cml0eSIsInNlc3Npb25fc3RhdGUiOiI4M2E4YThiMy00OTk2LTQwZjQtYjlmNS1jNjU3YmM3ZWQwMTkiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODA3OSJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy13aWxseSIsIm9mZmxpbmVfYWNjZXNzIiwiUk9MRV9SRUFERVIiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjgzYThhOGIzLTQ5OTYtNDBmNC1iOWY1LWM2NTdiYzdlZDAxOSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiSmFjayBEYW5pZWxzIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiai5kYW5pZWxzIiwiZ2l2ZW5fbmFtZSI6IkphY2siLCJmYW1pbHlfbmFtZSI6IkRhbmllbHMiLCJlbWFpbCI6ImouZGFuaWVsc0BnbWFpbC5jb20ifQ.0LAhqrRLeP96rwaJvV64n4bhFJx75kwPdwsVSoZnBOccJPLNwVXegvvIHkZNqVbkFECIb5BsaNNU_salgQdIvsnFWfoeD1fLR9Zl5qYi6_QSfb0x07LhK8sYn9-tSo0HuAzBGK7rte_D4WM96-Hcz0YBR2vvzy4RGk-9xkVgJ9T--yeYf3PpYygqCRlDxc1wVMzAnXO3tMKuBlkKULrWlQtljHIlsIlf2mMqTq_5xZOBgu7r3WzAtRlq3P9lJEE0rWK2ZY0IPgDOJqZNrtQLOWI0V8pblGGDqdDQ6T9eitIIZhA15scAbTv26CxJzdKzEP1iH_1cRwdJGSn0m2khNA"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8081/library/books/978-0-399-17632-4,978-0-399-15779-7"
+					},
+					"response": []
+				},
+				{
+					"name": "Update book (by ISBN)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJXMUE5Z2syMGNoNUJvQzBUbF9VZU1rODlxTkFFZDFrVW1LQ1oyX0JpNGtFIn0.eyJleHAiOjE3MjgzMTgyMjEsImlhdCI6MTcyODMxNjQyMSwianRpIjoiOTdkMjdmMjQtYzIxNS00NWVjLWJlODktZjYwNjRhODFjNjNlIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy93aWxseSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI3NmExMTIzZS02ODdlLTQ4MDItYTA0ZS1kZTQ5ZTQ1ZjBiZTQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJzcHJpbmdzZWN1cml0eSIsInNlc3Npb25fc3RhdGUiOiI4M2E4YThiMy00OTk2LTQwZjQtYjlmNS1jNjU3YmM3ZWQwMTkiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODA3OSJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy13aWxseSIsIm9mZmxpbmVfYWNjZXNzIiwiUk9MRV9SRUFERVIiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjgzYThhOGIzLTQ5OTYtNDBmNC1iOWY1LWM2NTdiYzdlZDAxOSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiSmFjayBEYW5pZWxzIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiai5kYW5pZWxzIiwiZ2l2ZW5fbmFtZSI6IkphY2siLCJmYW1pbHlfbmFtZSI6IkRhbmllbHMiLCJlbWFpbCI6ImouZGFuaWVsc0BnbWFpbC5jb20ifQ.0LAhqrRLeP96rwaJvV64n4bhFJx75kwPdwsVSoZnBOccJPLNwVXegvvIHkZNqVbkFECIb5BsaNNU_salgQdIvsnFWfoeD1fLR9Zl5qYi6_QSfb0x07LhK8sYn9-tSo0HuAzBGK7rte_D4WM96-Hcz0YBR2vvzy4RGk-9xkVgJ9T--yeYf3PpYygqCRlDxc1wVMzAnXO3tMKuBlkKULrWlQtljHIlsIlf2mMqTq_5xZOBgu7r3WzAtRlq3P9lJEE0rWK2ZY0IPgDOJqZNrtQLOWI0V8pblGGDqdDQ6T9eitIIZhA15scAbTv26CxJzdKzEP1iH_1cRwdJGSn0m2khNA"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"isbn\": \"978-0-060-11208-4\",\n    \"name\": \"Updated name\",\n    \"genre\": \"Updated genre\",\n    \"description\": \"Updated description\",\n    \"author\": \"Updated author\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8081/library/books/978-0-060-11208-4"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete book (by ISBN)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJXMUE5Z2syMGNoNUJvQzBUbF9VZU1rODlxTkFFZDFrVW1LQ1oyX0JpNGtFIn0.eyJleHAiOjE3MjgzMTg1MTYsImlhdCI6MTcyODMxNjcxNiwianRpIjoiOWE2OTkzOTEtYzUzOS00ZWI4LTkyMGMtMzhhODZlMThkMTllIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy93aWxseSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIzOTUxMWQ3Yi0wNmRkLTRmODYtOWRmMS1iZmMyYjRjMzgxNTAiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJzcHJpbmdzZWN1cml0eSIsInNlc3Npb25fc3RhdGUiOiI0NTY4MmI3MS0yOTBkLTQ1NWYtOTUxYi1lOTRjZWVmZDNmNzQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODA3OSJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy13aWxseSIsIm9mZmxpbmVfYWNjZXNzIiwiUk9MRV9MSUJSQVJJQU4iLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjQ1NjgyYjcxLTI5MGQtNDU1Zi05NTFiLWU5NGNlZWZkM2Y3NCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiVmxhZGltaXIgQWxoYXZhIiwicHJlZmVycmVkX3VzZXJuYW1lIjoibGlicmFyaWFuIiwiZ2l2ZW5fbmFtZSI6IlZsYWRpbWlyIiwiZmFtaWx5X25hbWUiOiJBbGhhdmEiLCJlbWFpbCI6ImxpYnJhcmlhbkBnbWFpbC5jb20ifQ.aaMw7a2a61VMLtL04SSBlzuCzTSqrHTAur_qQL1Vb3FC0so0nB_a8kLOX8jdDvhMdZ8Um0A61F75BcK1YIQKTAWavDbWgT8mx_4M3XSivlL-xQGRYovT6k2inuJSDhpro8A_XspZKwsrJWkl50RluH9L_1u-_qyJW7lrxvhrtrReGQodU7PGJzTIuz04oLbY_HsZRY4NtxBgpaow6YiviZCMerXtqLVdFIavFNaILri1UumY4mpDBMh51kDcIDL0JvRRKCCSZu4OSekPvOqTujIaXtF6VtJEM9PmLEu4zybHCjllxwQJIjicFB-EZdwTEUGOHwkO90KsodoFp_BiCQ"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/library/books?isbn=978-0-306-40615-7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"library",
+								"books"
+							],
+							"query": [
+								{
+									"key": "isbn",
+									"value": "978-0-306-40615-7"
+								}
+							]
+						},
+						"description": "This request also deletes a row in db from Free Books Service connected via ISBN!"
+					},
+					"response": []
+				}
+			],
+			"description": "Provides all endpoints for Library Service.\n\nPOST, PUT, DELETE requests require Bearer token (role LIBRARIAN).\n\nGET requests require Bearer token (any role)",
+			"auth": {
+				"type": "bearer",
+				"bearer": {}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Free Books Service",
+			"item": [
+				{
+					"name": "Add book (used for another service)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJXMUE5Z2syMGNoNUJvQzBUbF9VZU1rODlxTkFFZDFrVW1LQ1oyX0JpNGtFIn0.eyJleHAiOjE3MjgzMjU2MjksImlhdCI6MTcyODMyMzgyOSwianRpIjoiNjI4NjFjYTQtMWE3ZS00MDRjLTk0OWMtYTAyODFkYWQyOGIyIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy93aWxseSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIzOTUxMWQ3Yi0wNmRkLTRmODYtOWRmMS1iZmMyYjRjMzgxNTAiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJzcHJpbmdzZWN1cml0eSIsInNlc3Npb25fc3RhdGUiOiJhYThhYmRkOS04NjU2LTQ4NTItYWE4Ni0wYTczYTEyMTE0MzQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODA3OSJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy13aWxseSIsIm9mZmxpbmVfYWNjZXNzIiwiUk9MRV9MSUJSQVJJQU4iLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6ImFhOGFiZGQ5LTg2NTYtNDg1Mi1hYTg2LTBhNzNhMTIxMTQzNCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiVmxhZGltaXIgQWxoYXZhIiwicHJlZmVycmVkX3VzZXJuYW1lIjoibGlicmFyaWFuIiwiZ2l2ZW5fbmFtZSI6IlZsYWRpbWlyIiwiZmFtaWx5X25hbWUiOiJBbGhhdmEiLCJlbWFpbCI6ImxpYnJhcmlhbkBnbWFpbC5jb20ifQ.1HNHnstayzGmukRi7ORBIW8ewZG68uZcm2qSV07V-AvSJU81k_txXnL47v38f5JCSYjOREpeHbX6EC5oOZSWfGweai7rvWLT10cnMntPD1NdOoP7tVDZh5jJiCqCkA2elDnj_PZk2ZFKrUGdNrGnE09DCu4p2JrYbPgF6BepXDqB4DpXVHvok6QtMqhsXfCNUMxd6wRFy2yVRWz_dSimO7aOZwyx-gY2NK9wTz-kLSIWshkU7sszqC8ujoSfNI525_wgq3DQ7ogZ5IANmMkynH5T0RyvJVVPdACVpDDSRWaPNafJnmvJCDL611TDyouSMisG-EY5RqOnhhIj3zLoXg"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/free-books?isbn=978-0-000-01110-9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"free-books"
+							],
+							"query": [
+								{
+									"key": "isbn",
+									"value": "978-0-000-01110-9"
+								}
+							]
+						},
+						"description": "This request can't be executed directly! Only from Feign Client."
+					},
+					"response": []
+				},
+				{
+					"name": "Take book from library",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJXMUE5Z2syMGNoNUJvQzBUbF9VZU1rODlxTkFFZDFrVW1LQ1oyX0JpNGtFIn0.eyJleHAiOjE3MjgzMjYwODUsImlhdCI6MTcyODMyNDI4NSwianRpIjoiNDQ5ZjZiYmMtZjBjNC00NzFiLWIwMTAtOWNkYjIyNTY4NDcwIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy93aWxseSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIzOTUxMWQ3Yi0wNmRkLTRmODYtOWRmMS1iZmMyYjRjMzgxNTAiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJzcHJpbmdzZWN1cml0eSIsInNlc3Npb25fc3RhdGUiOiJjNTNkMjFkOC0zMzNhLTQ3ZDgtYTZhMy1kN2U1MTg2ODcwMDkiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODA3OSJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy13aWxseSIsIm9mZmxpbmVfYWNjZXNzIiwiUk9MRV9MSUJSQVJJQU4iLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6ImM1M2QyMWQ4LTMzM2EtNDdkOC1hNmEzLWQ3ZTUxODY4NzAwOSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiVmxhZGltaXIgQWxoYXZhIiwicHJlZmVycmVkX3VzZXJuYW1lIjoibGlicmFyaWFuIiwiZ2l2ZW5fbmFtZSI6IlZsYWRpbWlyIiwiZmFtaWx5X25hbWUiOiJBbGhhdmEiLCJlbWFpbCI6ImxpYnJhcmlhbkBnbWFpbC5jb20ifQ.wn4gz23kNTYj1_0sSgk5LVv8gYSv7af4-ktRV_VOfSl9-bW86w7dhmYKEYWcVQTzCxjz9H9CJB-PKzr6e4M-QlzJUNoQqdGyBrTtIu0huiOuOPfrtmlLtUMaLR7XsPq68SSDlP_BmH-c4ihIiNfa_MT8OmG0Sb5_7x2eGVL2YkZ2vtK08n6W0dhB5wU-HFn6N-wLk8BY4ylzAHz50jAuOcBhxCGwUkIjZGCIlbm6LlP51JvSF7OtIvsfvt2d4E79Wf91ltV27jc1B6-5fv7N13UUZqprXmhozPvfiPXy1UMmJkTqcb1btCapt8mf18uNO-PaQDgeZn8jXCByuF4dJQ"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/free-books/take?isbn=978-0-316-76948-8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"free-books",
+								"take"
+							],
+							"query": [
+								{
+									"key": "isbn",
+									"value": "978-0-316-76948-8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Return book to library",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJXMUE5Z2syMGNoNUJvQzBUbF9VZU1rODlxTkFFZDFrVW1LQ1oyX0JpNGtFIn0.eyJleHAiOjE3MjgzMjYwODUsImlhdCI6MTcyODMyNDI4NSwianRpIjoiNDQ5ZjZiYmMtZjBjNC00NzFiLWIwMTAtOWNkYjIyNTY4NDcwIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy93aWxseSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIzOTUxMWQ3Yi0wNmRkLTRmODYtOWRmMS1iZmMyYjRjMzgxNTAiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJzcHJpbmdzZWN1cml0eSIsInNlc3Npb25fc3RhdGUiOiJjNTNkMjFkOC0zMzNhLTQ3ZDgtYTZhMy1kN2U1MTg2ODcwMDkiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODA3OSJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy13aWxseSIsIm9mZmxpbmVfYWNjZXNzIiwiUk9MRV9MSUJSQVJJQU4iLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6ImM1M2QyMWQ4LTMzM2EtNDdkOC1hNmEzLWQ3ZTUxODY4NzAwOSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiVmxhZGltaXIgQWxoYXZhIiwicHJlZmVycmVkX3VzZXJuYW1lIjoibGlicmFyaWFuIiwiZ2l2ZW5fbmFtZSI6IlZsYWRpbWlyIiwiZmFtaWx5X25hbWUiOiJBbGhhdmEiLCJlbWFpbCI6ImxpYnJhcmlhbkBnbWFpbC5jb20ifQ.wn4gz23kNTYj1_0sSgk5LVv8gYSv7af4-ktRV_VOfSl9-bW86w7dhmYKEYWcVQTzCxjz9H9CJB-PKzr6e4M-QlzJUNoQqdGyBrTtIu0huiOuOPfrtmlLtUMaLR7XsPq68SSDlP_BmH-c4ihIiNfa_MT8OmG0Sb5_7x2eGVL2YkZ2vtK08n6W0dhB5wU-HFn6N-wLk8BY4ylzAHz50jAuOcBhxCGwUkIjZGCIlbm6LlP51JvSF7OtIvsfvt2d4E79Wf91ltV27jc1B6-5fv7N13UUZqprXmhozPvfiPXy1UMmJkTqcb1btCapt8mf18uNO-PaQDgeZn8jXCByuF4dJQ"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/free-books/return?isbn=978-0-316-76948-8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"free-books",
+								"return"
+							],
+							"query": [
+								{
+									"key": "isbn",
+									"value": "978-0-316-76948-8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all free books",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJXMUE5Z2syMGNoNUJvQzBUbF9VZU1rODlxTkFFZDFrVW1LQ1oyX0JpNGtFIn0.eyJleHAiOjE3MjgzMjYwODUsImlhdCI6MTcyODMyNDI4NSwianRpIjoiNDQ5ZjZiYmMtZjBjNC00NzFiLWIwMTAtOWNkYjIyNTY4NDcwIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy93aWxseSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIzOTUxMWQ3Yi0wNmRkLTRmODYtOWRmMS1iZmMyYjRjMzgxNTAiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJzcHJpbmdzZWN1cml0eSIsInNlc3Npb25fc3RhdGUiOiJjNTNkMjFkOC0zMzNhLTQ3ZDgtYTZhMy1kN2U1MTg2ODcwMDkiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODA3OSJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy13aWxseSIsIm9mZmxpbmVfYWNjZXNzIiwiUk9MRV9MSUJSQVJJQU4iLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6ImM1M2QyMWQ4LTMzM2EtNDdkOC1hNmEzLWQ3ZTUxODY4NzAwOSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiVmxhZGltaXIgQWxoYXZhIiwicHJlZmVycmVkX3VzZXJuYW1lIjoibGlicmFyaWFuIiwiZ2l2ZW5fbmFtZSI6IlZsYWRpbWlyIiwiZmFtaWx5X25hbWUiOiJBbGhhdmEiLCJlbWFpbCI6ImxpYnJhcmlhbkBnbWFpbC5jb20ifQ.wn4gz23kNTYj1_0sSgk5LVv8gYSv7af4-ktRV_VOfSl9-bW86w7dhmYKEYWcVQTzCxjz9H9CJB-PKzr6e4M-QlzJUNoQqdGyBrTtIu0huiOuOPfrtmlLtUMaLR7XsPq68SSDlP_BmH-c4ihIiNfa_MT8OmG0Sb5_7x2eGVL2YkZ2vtK08n6W0dhB5wU-HFn6N-wLk8BY4ylzAHz50jAuOcBhxCGwUkIjZGCIlbm6LlP51JvSF7OtIvsfvt2d4E79Wf91ltV27jc1B6-5fv7N13UUZqprXmhozPvfiPXy1UMmJkTqcb1btCapt8mf18uNO-PaQDgeZn8jXCByuF4dJQ"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8081/free-books"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete book from free books list (used for another service)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJXMUE5Z2syMGNoNUJvQzBUbF9VZU1rODlxTkFFZDFrVW1LQ1oyX0JpNGtFIn0.eyJleHAiOjE3MjgzMjU2MjksImlhdCI6MTcyODMyMzgyOSwianRpIjoiNjI4NjFjYTQtMWE3ZS00MDRjLTk0OWMtYTAyODFkYWQyOGIyIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy93aWxseSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIzOTUxMWQ3Yi0wNmRkLTRmODYtOWRmMS1iZmMyYjRjMzgxNTAiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJzcHJpbmdzZWN1cml0eSIsInNlc3Npb25fc3RhdGUiOiJhYThhYmRkOS04NjU2LTQ4NTItYWE4Ni0wYTczYTEyMTE0MzQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODA3OSJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy13aWxseSIsIm9mZmxpbmVfYWNjZXNzIiwiUk9MRV9MSUJSQVJJQU4iLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6ImFhOGFiZGQ5LTg2NTYtNDg1Mi1hYTg2LTBhNzNhMTIxMTQzNCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiVmxhZGltaXIgQWxoYXZhIiwicHJlZmVycmVkX3VzZXJuYW1lIjoibGlicmFyaWFuIiwiZ2l2ZW5fbmFtZSI6IlZsYWRpbWlyIiwiZmFtaWx5X25hbWUiOiJBbGhhdmEiLCJlbWFpbCI6ImxpYnJhcmlhbkBnbWFpbC5jb20ifQ.1HNHnstayzGmukRi7ORBIW8ewZG68uZcm2qSV07V-AvSJU81k_txXnL47v38f5JCSYjOREpeHbX6EC5oOZSWfGweai7rvWLT10cnMntPD1NdOoP7tVDZh5jJiCqCkA2elDnj_PZk2ZFKrUGdNrGnE09DCu4p2JrYbPgF6BepXDqB4DpXVHvok6QtMqhsXfCNUMxd6wRFy2yVRWz_dSimO7aOZwyx-gY2NK9wTz-kLSIWshkU7sszqC8ujoSfNI525_wgq3DQ7ogZ5IANmMkynH5T0RyvJVVPdACVpDDSRWaPNafJnmvJCDL611TDyouSMisG-EY5RqOnhhIj3zLoXg"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/free-books?isbn=978-9-999-00000-9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"free-books"
+							],
+							"query": [
+								{
+									"key": "isbn",
+									"value": "978-9-999-00000-9"
+								}
+							]
+						},
+						"description": "This request can't be executed directly! Only from Feign Client."
+					},
+					"response": []
+				}
+			],
+			"description": "Provides all endpoints for Free Books Service.\n\nPOST, PUT, DELETE requests require Bearer token (role LIBRARIAN).\n\nGET requests require Bearer token (any role).\n\n# **NOTE!**\n\nPOST and DELETE requests don't work to use directly! You are able to use them only from Feign Client! If you try to execute POST or DELETE requests directly you will get error with status code 403 (Forbidden)!",
+			"auth": {
+				"type": "bearer",
+				"bearer": {}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}

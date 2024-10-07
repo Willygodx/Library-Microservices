@@ -1,4 +1,4 @@
-package by.ruslan.project.exception.exceptions;
+package by.ruslan.project.controller.outer.exception.exceptions;
 
 public class BookNotFoundByIsbnException extends RuntimeException {
   public BookNotFoundByIsbnException(String isbn) {

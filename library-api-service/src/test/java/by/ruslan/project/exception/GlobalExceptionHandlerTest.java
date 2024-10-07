@@ -7,11 +7,12 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import by.ruslan.project.controller.outer.exception.GlobalExceptionHandler;
 import by.ruslan.project.dto.ExceptionDto;
-import by.ruslan.project.exception.exceptions.BookNotFoundByIsbnException;
-import by.ruslan.project.exception.exceptions.BookWithSameIsbnException;
-import by.ruslan.project.exception.validation.Validation;
-import by.ruslan.project.exception.validation.ValidationResponse;
+import by.ruslan.project.controller.outer.exception.exceptions.BookNotFoundByIsbnException;
+import by.ruslan.project.controller.outer.exception.exceptions.BookWithSameIsbnException;
+import by.ruslan.project.controller.outer.exception.validation.Validation;
+import by.ruslan.project.controller.outer.exception.validation.ValidationResponse;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import java.util.HashSet;

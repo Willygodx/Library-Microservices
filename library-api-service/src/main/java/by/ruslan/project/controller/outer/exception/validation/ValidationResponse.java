@@ -1,4 +1,4 @@
-package by.ruslan.project.exception.validation;
+package by.ruslan.project.controller.outer.exception.validation;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
